@@ -31,6 +31,14 @@ class Tilemap {
     /*cellWidth = width / (cols - 2);
      cellHeight = height / (rows - 2);*/
   }
+  
+  void update() {
+    checkCollision();
+  }
+  
+  void checkCollision() {
+    
+  }
 
   void renderMap() {
     push();
