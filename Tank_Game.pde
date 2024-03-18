@@ -22,13 +22,13 @@ void setup() {
 }
 
 void draw() {
-  background (50);
+  background(50);
   map.update();
   map.renderMap();
   firstPlayer.update();
   firstPlayer.draw();
   secondPlayer.update();
   secondPlayer.draw();
-  
+
   //noLoop();
 }

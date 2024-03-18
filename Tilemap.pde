@@ -1,6 +1,6 @@
 class Tilemap {
 
-  int[][] mur = {
+  int[][] map = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -18,46 +18,46 @@ class Tilemap {
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
   };
+
   int rows, cols;
   int cellWidth, cellHeight;
+
+  ArrayList<Wall> walls;
 
   Tilemap() {
     //cols = 10;
     //rows = 10;
-    rows = mur.length;
-    cols = mur[0].length;
+    rows = map.length;
+    cols = map[0].length;
     cellWidth = width / cols;
     cellHeight = height / rows;
-    /*cellWidth = width / (cols - 2);
-     cellHeight = height / (rows - 2);*/
+    walls = new ArrayList<Wall>();
+    loadTileMap();
   }
-  
+
   void update() {
     checkCollision();
   }
-  
+
   void checkCollision() {
-    
   }
 
   void renderMap() {
     push();
-    noStroke();
-    for (int i = 0; i <rows; i++) {
-      for (int j = 0; j <cols; j++) {
-        switch (mur[i][j]) {
-        case 0:
-          fill(200);
-          break;
-        case 1:
-          fill(100);
-          break;
-        }//switch
-
-        rect(j*cellWidth, i*cellHeight, cellWidth, cellHeight);
-        //rect(j*cellWidth - cellWidth, i*cellHeight - cellWidth, cellWidth, cellHeight);
-      }//cols
-    }// rows
+    for (Wall wall : walls){
+      wall.draw();
+    }
     pop();
   }//renderMap
+
+  void loadTileMap() {
+    for (int i = 0; i <rows; i++) {
+      for (int j = 0; j <cols; j++) {
+        if (map[i][j] == 0) {
+          continue;
+        }
+        walls.add(new Wall(cellWidth * j, cellHeight * i, cellWidth, cellHeight, color(255, 0, 0)));
+      }//cols
+    }// rows
+  }
 }
