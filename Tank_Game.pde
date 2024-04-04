@@ -1,15 +1,15 @@
 import rna.tools.KeyHandler;
-Tank tank;
+import java.util.Collections;
+
 KeyHandler keys;
 Tilemap map;
 PImage imggt, imgrt, imgbt, imgpt, imgyt;
-Tank firstPlayer;
-Tank secondPlayer;
+
+ArrayList<Tank> tanks;
 
 
 void setup() {
   size(800, 800);
-  frameRate(30);
   imggt = loadImage("greenTank.png");
   imgrt = loadImage("redTank.png");
   imgbt = loadImage("blueTank.png");
@@ -17,18 +17,18 @@ void setup() {
   imgyt = loadImage("yellowTank.png");
   keys = new KeyHandler(true);
   map = new Tilemap();
-  firstPlayer = new Tank(width / 2, height / 2, 0, 'w', 's', 'a', 'd', ' ');
-  secondPlayer = new Tank(width / 2, height / 2, 0, 'i', 'k', 'j', 'l', 'b');
+  tanks = new ArrayList<Tank>();
+  tanks.add(new Tank(imggt, width / 4, height / 2, 0, 'w', 's', 'a', 'd', ' '));
+  tanks.add(new Tank(imgrt, width / 4 * 3, height / 2, 0, 'i', 'k', 'j', 'l', 'b'));
 }
 
 void draw() {
   background(50);
   map.update();
   map.renderMap();
-  firstPlayer.update();
-  firstPlayer.draw();
-  secondPlayer.update();
-  secondPlayer.draw();
-
+  for (Tank tank : tanks){
+    tank.update();
+    tank.draw();
+  }
   //noLoop();
 }

@@ -44,7 +44,7 @@ class Tilemap {
 
   void renderMap() {
     push();
-    for (Wall wall : walls){
+    for (Wall wall : walls) {
       wall.draw();
     }
     pop();
@@ -56,7 +56,7 @@ class Tilemap {
         if (map[i][j] == 0) {
           continue;
         }
-        walls.add(new Wall(cellWidth * j, cellHeight * i, cellWidth, cellHeight, color(255, 0, 0)));
+        walls.add(new Wall(cellWidth * j + cellWidth / 2, cellHeight * i + cellHeight / 2, cellWidth, cellHeight, color(100)));
       }//cols
     }// rows
   }
