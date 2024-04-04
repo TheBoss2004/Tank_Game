@@ -1,9 +1,11 @@
 class Kugle {
 
+  Tank tank;
   PVector position, velocity;
   float size, kugleVinkel, accel;
 
-  Kugle(PVector pos, float vinkel, float speed) {
+  Kugle(Tank tank, PVector pos, float vinkel, float speed) {
+    this.tank = tank;
     position = new PVector(pos.x, pos.y);
     velocity = PVector.fromAngle(radians(vinkel));
     velocity.mult(speed);
@@ -11,9 +13,13 @@ class Kugle {
     size = 7;
     accel = 0.99;
   }
+  
   void update() {
     velocity.mult(accel);
     position.add(velocity);
+    if (ramteVæg(map.getWalls())){
+      tank.fjernKugle(this);
+    }
   }
 
   void draw() {
@@ -38,5 +44,9 @@ class Kugle {
 
   PVector getPos() {
     return position;
+  }
+  
+  void fjernKugle() {
+    tank.fjernKugle(this);
   }
 }

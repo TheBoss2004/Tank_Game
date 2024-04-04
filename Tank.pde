@@ -65,13 +65,18 @@ class Tank {
         i--;
       }
     }
+    
+    if (collidingWithKugle(pos, tanks)){
+      // Hvad sker der når en tank dør? ----------------------------------------------------------------------
+      
+    }
   }
 
   void shoot() {
     if (millis() - sidstSkudt > SKUD_COOLDOWN && keys.isDown(movementKeys[4])) {
       sidstSkudt = millis();
       PVector forward = PVector.fromAngle(radians(rotation - 90)).mult(5);
-      kugler.add(new Kugle(PVector.add(pos, forward), rotation - 90, 10));
+      kugler.add(new Kugle(this, PVector.add(pos, forward), rotation - 90, 10));
       println(kugler.size());
     } //update
   }
@@ -89,7 +94,8 @@ class Tank {
     image(img, 0, 0);
     popMatrix();
 
-    /*for (PVector corner : getBodyCorners(pos, rotation)) {
+    /* This shows the dots
+     for (PVector corner : getBodyCorners(pos, rotation)) {
      fill(255, 0, 0);
      circle(corner.x, corner.y, 3);
      }
@@ -108,10 +114,12 @@ class Tank {
 
       for (Kugle kugle : otherTank.kugler) {
         if (pointInTank(kugle.getPos(), PVector.sub(getBarrelCorners()[1], pos))) {
+          kugle.fjernKugle();
           return true;
         }
 
         if (pointInTank(kugle.getPos(), PVector.sub(getBodyCorners()[1], pos))) {
+          kugle.fjernKugle();
           return true;
         }
       }
@@ -168,7 +176,7 @@ class Tank {
       }
     }
     return false;
-  }
+  }//tankwallcollusion
 
   PVector[] getAxisFromPoints(PVector[] corners) {
     PVector[] axis = new PVector[2];
@@ -284,5 +292,9 @@ class Tank {
     UL.rotate(radians(rotation));
     corners[3] = PVector.add(pos, UL);
     return corners;
+  }
+ 
+  void fjernKugle(Kugle kugle) {
+    kugler.remove(kugle);
   }
 }//class

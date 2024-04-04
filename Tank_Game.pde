@@ -24,11 +24,11 @@ void setup() {
 
 void draw() {
   background(50);
-  map.update();
-  map.renderMap();
   for (Tank tank : tanks){
     tank.update();
     tank.draw();
   }
+  map.update();
+  map.renderMap();
   //noLoop();
 }
