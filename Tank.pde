@@ -58,16 +58,14 @@ class Tank {
 
     shoot();
     
-    for (int i = 0; i < kugler.size(); i++) {
-      Kugle kugle = kugler.get(i);
-      if (kugle.ramteVæg(map.walls)){
-        kugler.remove(kugle);
-        i--;
-      }
-    }
-    
     if (collidingWithKugle(pos, tanks)){
-      // Hvad sker der når en tank dør? ----------------------------------------------------------------------
+      // Hvad sker der når en tank dør? 
+      int tankNummer = tanks.indexOf(this) + 1;
+      if (tankNummer == 1){
+        gameOver = "Spiller 2 vandt!";
+      } else {
+        gameOver = "Spiller 1 vandt!";
+      }
       
     }
   }
@@ -115,11 +113,13 @@ class Tank {
       for (Kugle kugle : otherTank.kugler) {
         if (pointInTank(kugle.getPos(), PVector.sub(getBarrelCorners()[1], pos))) {
           kugle.fjernKugle();
+          println("hit: " + frameCount);
           return true;
         }
 
         if (pointInTank(kugle.getPos(), PVector.sub(getBodyCorners()[1], pos))) {
           kugle.fjernKugle();
+          println("hit: " + frameCount);
           return true;
         }
       }
@@ -235,7 +235,8 @@ class Tank {
     localPoint.x = abs(localPoint.x);
     localPoint.y = abs(localPoint.y);
 
-    if (localPoint.x <= corner.x && localPoint.y <= corner.y) {
+ /*abs bliver brugt til så tanks prostioner er hele tiden positiv*/
+    if (localPoint.x <= abs(corner.x) && localPoint.y <= abs(corner.y)) {
       return true;
     }// if
 

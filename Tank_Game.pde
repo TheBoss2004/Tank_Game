@@ -3,28 +3,35 @@ import java.util.Collections;
 
 KeyHandler keys;
 Tilemap map;
-PImage imggt, imgrt, imgbt, imgpt, imgyt;
+PImage imggt, imgrt;
 
 ArrayList<Tank> tanks;
 
+String gameOver = "";
 
 void setup() {
   size(800, 800);
   imggt = loadImage("greenTank.png");
   imgrt = loadImage("redTank.png");
-  imgbt = loadImage("blueTank.png");
-  imgpt = loadImage("purpleTank.png");
-  imgyt = loadImage("yellowTank.png");
   keys = new KeyHandler(true);
   map = new Tilemap();
   tanks = new ArrayList<Tank>();
   tanks.add(new Tank(imggt, width / 4, height / 2, 0, 'w', 's', 'a', 'd', ' '));
   tanks.add(new Tank(imgrt, width / 4 * 3, height / 2, 0, 'i', 'k', 'j', 'l', 'b'));
+  
 }
-
+ //<>//
 void draw() {
   background(50);
-  for (Tank tank : tanks){
+  if (gameOver != ""){
+    fill(255);
+    textSize(50);
+    textAlign(CENTER, CENTER);
+    text(gameOver, width / 2, height / 2);
+    return;
+  }
+  for (int i = 0; i < tanks.size(); i++) {
+    Tank tank = tanks.get(i);
     tank.update();
     tank.draw();
   }
