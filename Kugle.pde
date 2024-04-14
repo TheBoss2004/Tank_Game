@@ -1,7 +1,7 @@
 class Kugle {
 
   Tank tank;
-  PVector position, velocity;
+  PVector position, velocity; 
   float size, kugleVinkel, accel;
 
   Kugle(Tank tank, PVector pos, float vinkel, float speed) {
@@ -31,7 +31,8 @@ class Kugle {
   }
 
   boolean ramteVæg(ArrayList<Wall> walls) {
-    for (Wall wall : walls) {
+    for (Wall wall
+    : walls) {
       PVector wallPos = wall.getPos();
       PVector wallSize = wall.getSize();
 

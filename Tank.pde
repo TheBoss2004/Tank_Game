@@ -25,9 +25,9 @@ class Tank {
     movementKeys[2] = a;
     movementKeys[3] = d;
     movementKeys[4] = shoot;
-  } //float
+  } 
 
-  //vi skal loade librabry til at kunne importere billeder
+
   void update() {
     PVector movement = new PVector(0, 0);
     if (keys.isDown(movementKeys[0])) {
